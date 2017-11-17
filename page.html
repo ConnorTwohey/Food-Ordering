@@ -1,31 +1,29 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
-	 <?php
+	  <?php
         $servername = "localhost";
-        $username = "username";
-        $password = "password";
+        $username = "root";
+        $password = "";
         $dbname = "Online-Food-Ordering";
     
         // Create connection
-        $conn = new mysqli($servername, $username, $password, $dbname);
+        $conn = mysqli_connect($servername, $username, $password, $dbname);
         // Check connection
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
+        if (!$conn) {
+            die("Connection failed: " . mysqli_connect_error());
         }
-    
-        $sql = "SELECT * FROM Products";
-        $result = $conn->query($sql);
         
-        if ($result->num_rows > 0) {
-            // output data of each row
-            while($row = $result->fetch_assoc()) {
-                echo "id: " . $row["id"]. " - Name: " . $row["firstname"]. " " . $row["lastname"]. "<br>";
+        $query = mysql_query("SELECT * FROM `Products`");
+        // Loop over all result rows
+        while($row = mysql_fetch_assoc($query)) {
+            // Loop over all fields per row
+            foreach($row as $field => $value) {
+                echo '<tr><td>' . htmlentities($field) . '</td><td>' . htmlentities($value) . '</td></tr>';
             }
-        } else {
-            echo "0 results";
+            // New data row can optionally be seperated with a blank line here
+            echo '<tr><td colspan="2">&nbsp;</td></tr>';
         }
-        $conn->close();
     ?> 
 </head>
 <body>
