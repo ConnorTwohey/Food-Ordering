@@ -14,14 +14,13 @@
             die("Connection failed: " . mysqli_connect_error());
         }
         
-        $query = mysql_query("SELECT * FROM `Products`");
+        $query = mysql_query("SELECT * FROM `Customers`");
         // Loop over all result rows
         while($row = mysql_fetch_assoc($query)) {
             // Loop over all fields per row
-            foreach($row as $field => $value) {
+            foreach($row as $field = $value) {
                 echo '<tr><td>' . htmlentities($field) . '</td><td>' . htmlentities($value) . '</td></tr>';
             }
-            // New data row can optionally be seperated with a blank line here
             echo '<tr><td colspan="2">&nbsp;</td></tr>';
         }
     ?> 
