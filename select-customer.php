@@ -1,38 +1,31 @@
 <?php
-	//include 'database.php';
+ 	require('config.php');
 	
-	$servername = "localhost";
-	$username = "root";
-	$password = "root";
-	$dbname = "Online_Food_Ordering";
+	print "<table border = '1'><tr><th>ID No.</th><th>Username</th><th>Password</th><th>Name</th>
+	<th>Address</th><th>Phone No.</th><th>Email</th><th>Created by</th><th>Credits</th></tr>";
 	
-	try {
-		$conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-		// set the PDO error mode to exception
-		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		echo "Connected successfully<br>";
-	}
-	catch(PDOException $e)
-	{
-		echo "Connection failed: " . $e->getMessage();
-	}
+	$pdo->beginTransaction();
 	
-	$conn->beginTransaction();
-	
-	$conn->exec('LOCK TABLES `Customer` WRITE');
-	echo "Tables is locked<br>";
+	$pdo->exec('LOCK TABLES `Customer` WRITE');
 	try{
-		$sql = 'SELECT Finit, Lname FROM Customer ORDER BY Lname';
-		foreach ($conn->query($sql) as $row) {
-			print $row['Lname'] . "\t";
-			print $row['Finit'] . "<br>";
+		$sql = 'SELECT * FROM Customer ORDER BY IdNo';
+		foreach ($pdo->query($sql) as $row) {
+			print "<tr>";
+			print "<td>" . $row['IdNo'] . "</td>";
+			print "<td>" . $row['UserName'] . "</td>";
+			print "<td>" . $row['Password'] . "</td>";
+			print "<td>" . $row['Finit'] . ". " . $row['Lname'] . "</td>";
+			print "<td>" . $row['Address'] . "</td>";
+			print "<td>" . $row['PhoneNo'] . "</td>";
+			print "<td>" . $row['Email'] . "</td>";
+			print "<td>" . $row['CreatedDate'] . "</td>";
+			print "<td>" . $row['Credits'] . "</td>";
 		}
-		$conn->commit();
+		$pdo->commit();
 	}
 	catch(PDOException $e){
-		$conn->rollBack();
+		$pdo->rollBack();
 	}
-	$conn->exec('UNLOCK TABLES');
-	echo "Table is unlocked<br>";
-	$conn->close ();
+	$pdo->exec('UNLOCK TABLES');
+	$pdo->close ();
 ?>

@@ -1,23 +1,56 @@
  <?php
-	$servername = "localhost";
-	$username = "root";
-	$password = "root";
-	$dbname = "Online_Food_Ordering";
+	define('DB_SERVER', 'localhost');
+	define('DB_USERNAME', 'root');
+	define('DB_PASSWORD', 'root');
+	define('DB_NAME', 'Online_Food_Ordering');
 	
-	// Create connection
-	$conn = new mysqli ( $servername, $username, $password, $dbname );
-	// Check connection
-	if ($conn->connect_error) {
-		die ( "Connection failed: " . $conn->connect_error );
+ 	function insert_customer($name, $password, $finit, $lname, $address, $phoneno, $email, $credits){
+		print("$name, $password, $finit, $lname, $address, $phoneno, $email, $credits<br>");
+		try{
+			$pdo = new PDO("mysql:host=" . DB_SERVER . ";dbname=" . DB_NAME, DB_USERNAME, DB_PASSWORD);
+		
+			$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			
+			print "Connected to databse. <br><br>";
+		
+		} catch(PDOException $error){
+			die("ERROR: Could not connect. " . $error->getMessage());
+		}
+		
+		$pdo->beginTransaction();
+		print "Transaction has begun.<br>";
+		
+		print "Locking.<br>";
+		$pdo->exec('LOCK TABLES `Customer` WRITE');
+		print "Customer table is locked<br>";
+		
+		
+		try{
+				
+			$stmt = $pdo->prepare("INSERT INTO `Customer` (`UserName`, `Password`, `Finit`, `Lname`, `Address`, `PhoneNo`, `Email`, `Credits`) VALUES (:uname, :pass, :init, :last, :addr, :phone, :mail, :cred);");
+			
+			$stmt->bindParam(':uname', $name, PDO::PARAM_STR, 12);
+			$stmt->bindParam(':pass', $password, PDO::PARAM_STR, 12);
+			$stmt->bindParam(':init', $finit, PDO::PARAM_STR, 1);
+			$stmt->bindParam(':last', $lname, PDO::PARAM_STR, 32);
+			$stmt->bindParam(':addr', $address, PDO::PARAM_STR, 256);
+			$stmt->bindParam(':phone', $phoneno, PDO::PARAM_STR, 12);
+			$stmt->bindParam(':mail', $email, PDO::PARAM_STR, 100);
+			$stmt->bindValue(':cred', $credits, PDO::PARAM_INT);
+			$stmt->execute();
+			$pdo->commit();
+			
+			$pdo->exec('UNLOCK TABLES');
+			print "Customer entry has commited.<br>Unlock table. <br>";
+			
+			print "Successful transaction<br>";
+			
+		}
+		catch(PDOException $error) {
+			$pdo->rollback();
+			print("Rollingback <br>");
+			print("ERROR: Could not complete. " . $error->getMessage());
+			die("ERROR: Could not complete. " . $error->getMessage());
+		}
 	}
-	
-	$sql = "INSERT INTO `Customer` (`UserName`, `Password`, `Finit`, `Lname`, `Address`, `PhoneNo`, `Email`) VALUES ('$_POST[UserName]', '$_POST[Password]', '$_POST[Finit]', '$_POST[LastName]', '$_POST[Address]', '$_POST[Phoneno]', '$_POST[Email]');";
-	
-	if ($conn->query ( $sql ) === TRUE) {
-		echo "New record created successfully";
-	} else {
-		echo "Error: " . $sql . "<br>" . $conn->error;
-	}
-	
-	$conn->close ();
 	?> 
