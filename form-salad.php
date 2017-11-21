@@ -7,11 +7,11 @@
 </head>
 <body>
 <?php
-  include 'insert-appetizer.php';
+  include 'insert-salad.php';
 
   $pnameErr = $descripErr = $priceErr = $imageErr = $stockErr = $calErr = $fatsErr = $sizeErr = "";
 		$pname = $descrip = $image = $size = "";
-		$price = $stock = $cal = $fats = 0;
+		$price = $stock = $cal = $fats = $dressing = 0;
 
     if ($_SERVER["REQUEST_METHOD"] == "POST"){
     			  $pname = $_POST["PName"];
@@ -21,11 +21,12 @@
     			  $cals = $_POST["Calories"];
     			  $fats = $_POST["Fats"];
             $size = $_POST["Size"];
+            $dressing = $_POST["Dressing"];
 
             $file = $_POST["Image"];
             $image = fopen("$file", "rb");
 
-            echo "$pname, $descrip, $price, $image, $stock, $cal, $fats, $size";
+            echo "$pname, $descrip, $price, $image, $stock, $cal, $fats, $size, $dressing";
 
 
             if (empty($pname)) {
@@ -60,6 +61,7 @@
           $sizeErr = "Size is required";
         }
 
+
 			  if($nameErr == "" && $passwordErr == "" && $finitErr == "" && $lnameErr == "" && $addressErr == "" && $phoneErr == "" && $emailErr == "" && $sizeErr == ""){
 					echo "Form has been sent.<br>";
 				  	echo "$pname, $descrip, $price, $fpath, $stock, $cal, $fats, $size";
@@ -69,7 +71,7 @@
 		}
 	?>
 
-  <h2>Appetizer Input Form</h2>
+  <h2>Salad Input Form</h2>
 
   <p><span class="error">* required field.</span></p>
 
@@ -97,9 +99,13 @@ Calories: <input type="number" name="Calories" value="<?php echo $phone;?>" min=
 
   Size: <input type="text" name="Size" value="<?php echo $size;?>" maxlength="1">
     <span class="error">* <?php echo $sizeErr;?></span><br><br>
+
+    Has Dressing: <input type="text" name="Dressing" value="<?php echo $dressing;?>" maxlength="1">
+
+
     <input type="submit" name="submit" value="Submit">
   </form>
-  <p>Click the "Submit" button to input Appetizer data.</p>
+  <p>Click the "Submit" button to input Salad data.</p>
 <p><a href="http://localhost:8888/">&lt;Back to index&gt;</a></p>
 
 </body>

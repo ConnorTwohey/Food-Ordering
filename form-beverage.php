@@ -99,7 +99,7 @@ Calories: <input type="number" name="Calories" value="<?php echo $phone;?>" min=
     <span class="error">* <?php echo $sizeErr;?></span><br><br>
     <input type="submit" name="submit" value="Submit">
   </form>
-  <p>Click the "Submit" button to input Dessert data.</p>
+  <p>Click the "Submit" button to input Beverage data.</p>
 <p><a href="http://localhost:8888/">&lt;Back to index&gt;</a></p>
 
 </body>
