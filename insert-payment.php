@@ -23,9 +23,10 @@
         print "Customer_Payments table is locked<br>";
 
         try{
-			
-          $total = $pdo->query("SELECT Price FROM Product, FoodOrder  WHERE ProductId = Pid AND OrderId = $oid;");
-		  
+
+          $t = $pdo->query("SELECT Price FROM Product, FoodOrder  WHERE ProductId = Pid AND OrderId = $oid;");
+          $total = $t->fetch();
+
           $stmt = $pdo->prepare("INSERT INTO `Customer_Payments` (`Cid`,`Oid`,`Payment_Method`,`TotalPrice`) VALUES (:custid, :ordid, :tot, :pay);");
 
           $stmt->bindParam(':custid', $cid, PDO::PARAM_INT);
@@ -35,10 +36,10 @@
           $stmt->execute();
 
           $pdo->commit();
-	  
+
 		  $pdo->exec('UNLOCK TABLES');
 		  print "Unlock table. Successful transaction<br>";
-		
+
 		  $pdo = null;
         }
         catch(PDOException $error) {
