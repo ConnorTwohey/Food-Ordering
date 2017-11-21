@@ -69,7 +69,7 @@
 		}
 	?>
 
-  <h2>Beverage Input Form</h2>
+  <h2>Appetizer Input Form</h2>
 
   <p><span class="error">* required field.</span></p>
 
