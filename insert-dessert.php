@@ -28,7 +28,7 @@
 	print "Transaction has begun.<br>";
 	
 	print "Locking.<br>";
-	$pdo->exec('LOCK TABLES `Product` WRITE');
+	$pdo->exec('LOCK TABLES `Product` WRITE, `Dessert` WRITE');
 	print "Customer table is locked<br>";
 	
 	
@@ -46,7 +46,7 @@
 		
 		print("Finding ProductID to reference<br>");
 		
-		$stmt = $pdo->perpare("SELECT ProductId WHERE Product_Name = :name");
+		$stmt = $pdo->prepare("SELECT ProductId FROM Product WHERE Product_Name = :name;");
 		$stmt->bindParam(':name', $name, PDO::PARAM_STR, 32);
 		$stmt->execute();
 		$row = $stmt->fetch();
