@@ -19,20 +19,21 @@
         print "Transaction has begun.<br>";
 
         print "Locking.<br>";
-        $pdo->exec('LOCK TABLES `Customer_Payments` WRITE');
+        $pdo->exec('LOCK TABLES `Customer_Payments` WRITE, `Product` READ, `FoodOrder` READ');
         print "Customer_Payments table is locked<br>";
 
         try{
 
+
           $t = $pdo->query("SELECT Price FROM Product, FoodOrder  WHERE ProductId = Pid AND OrderId = $oid;");
           $total = $t->fetch();
 
-          $stmt = $pdo->prepare("INSERT INTO `Customer_Payments` (`Cid`,`Oid`,`Payment_Method`,`TotalPrice`) VALUES (:custid, :ordid, :tot, :pay);");
+          $stmt = $pdo->prepare("INSERT INTO `Customer_Payments` (`Cid`,`Oid`,`Payment_Method`,`TotalPrice`) VALUES (:custid, :ordid, :method, :total);");
 
           $stmt->bindParam(':custid', $cid, PDO::PARAM_INT);
           $stmt->bindParam(':ordid', $oid, PDO::PARAM_INT);
-          $stmt->bindParam(':tot', $total);
-          $stmt->bindParam(':payment', $method, PDO::PARAM_STR, 100);
+          $stmt->bindParam(':total', $total);
+          $stmt->bindParam(':method', $method, PDO::PARAM_STR, 100);
           $stmt->execute();
 
           $pdo->commit();

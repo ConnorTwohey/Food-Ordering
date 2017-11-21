@@ -10,30 +10,29 @@
   include 'insert-payment.php';
 
   // defining variables
-  $cid = $eid = $pid = 0;
-  $deliver = false;
+  $oid = $cid = 0;
+  $payment = "";
 
   if($_SERVER["REQUEST_METHOD"] == "POST"){
     $cid = $_POST["CustId"];
-    $eid = $_POST["EmpId"];
-    $pid = $_POST["ProdId"];
-    $deliver = $_POST["Is_Delivery"];
+    $oid = $_POST["Oid"];
+    $payment = $_POST["Payment_Method"];
 
     if(empty($cid)) {
       $cidErr = "Customer ID is required";
     }
 
-    if(empty($eid)) {
-      $eidErr = "Employee ID is required";
+    if(empty($oid)) {
+      $oidErr = "Order ID is required";
     }
 
-    if(empty($pid)) {
-      $pidErr = "Product ID is required";
+    if(empty($payment)) {
+      $payErr = "Method of Payment is required";
     }
 
-    if($cidErr == "" && $eidErr == "" && $pidErr == "") {
+    if($cidErr == "" && $oidErr == "" && $payErr == "") {
       echo "Form has been sent.<br>";
-      insert_payment($cid,$eid,$pid,$deliver);
+      insert_payment($oid,$cid,$payment);
       echo "Query has been sent<br>";
     }
 
@@ -49,14 +48,11 @@
     Customer ID: <input type="text" name="CustId" value="<?php echo $cid;?>">
       <span class="error">* <?php echo $cidErr;?></span><br><br>
 
-    Employee ID: <input type="text" name="EmpId" value="<?php echo $eid;?>">
-      <span class="error">* <?php echo $eidErr;?></span><br><br>
+    Order ID: <input type="text" name="Oid" value="<?php echo $eid;?>">
+      <span class="error">* <?php echo $oidErr;?></span><br><br>
 
-    Product ID: <input type="text" name="ProdId" value="<?php echo $pid;?>">
-      <span class="error">* <?php echo $pidErr;?></span><br><br>
-
-    Is Delivery: <input type="number" name="Is_Delivery" value="<?php echo $deliver;?>" min="0" max="1">
-    	&nbsp;&nbsp;&nbsp;&nbsp;1 if delivery, 0 if not. <br><br>
+    Method of Payment: <input type="text" name="Payment_Method" value="<?php echo $pid;?>">
+      <span class="error">* <?php echo $payErr;?></span><br><br>
 
     <input type="submit" name="submit" value="Submit">
   </form>
