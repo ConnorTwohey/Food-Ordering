@@ -32,7 +32,7 @@
 				print "<td>" . $row['ProductId'] . "</td>";
 				print "<td>" . $row['Product_Name'] . "</td>";
 				print "<td>" . $row['Description'] . "</td>";
-				print "<td>" . $row['Price'] . ". " . $row['Lname'] . "</td>";
+				print "<td>" . $row['Price'] . "</td>";
 				print "<td>" . $row['Num_In_Stock'] . "</td>";
 				print "<td>" . $row['Calories'] . "</td>";
 				print "<td>" . $row['Fats'] . "</td></tr>";

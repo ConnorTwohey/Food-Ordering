@@ -23,7 +23,7 @@
         print "Customer table is locked<br>";
 
         try{
-            $stmt1 = $pdo->prepare("INSERT INTO `FoodOrder` (`CmId`, `EmpId`, `ProdId`, `Is_Delivery`) VALUES (:custid, :empid, :prodid, :deliv);");
+            $stmt1 = $pdo->prepare("INSERT INTO `FoodOrder` (`CmId`, `EmpId`, `Pid`, `Is_Delivery`) VALUES (:custid, :empid, :prodid, :deliv);");
 
             $stmt1->bindParam(':custid', $cid, PDO::PARAM_INT);
             $stmt1->bindParam(':empid', $eid, PDO::PARAM_INT);
