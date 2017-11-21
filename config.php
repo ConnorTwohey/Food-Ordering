@@ -9,7 +9,7 @@
 	
 		$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		
-		print "Connected to databse. <br><br>";
+		print "Connected to database. <br><br>";
 	
 	} catch(PDOException $error){
 		die("ERROR: Could not connect. " . $error->getMessage());

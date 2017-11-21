@@ -1,31 +1,49 @@
-<?php
- 	require('config.php');
-	
-	print "<table border = '1'><tr><th>ID No.</th><th>Username</th><th>Password</th><th>Name</th>
-	<th>Address</th><th>Phone No.</th><th>Email</th><th>Created by</th><th>Credits</th></tr>";
-	
-	$pdo->beginTransaction();
-	
-	$pdo->exec('LOCK TABLES `Customer` WRITE');
-	try{
-		$sql = 'SELECT * FROM Customer ORDER BY IdNo';
-		foreach ($pdo->query($sql) as $row) {
-			print "<tr>";
-			print "<td>" . $row['IdNo'] . "</td>";
-			print "<td>" . $row['UserName'] . "</td>";
-			print "<td>" . $row['Password'] . "</td>";
-			print "<td>" . $row['Finit'] . ". " . $row['Lname'] . "</td>";
-			print "<td>" . $row['Address'] . "</td>";
-			print "<td>" . $row['PhoneNo'] . "</td>";
-			print "<td>" . $row['Email'] . "</td>";
-			print "<td>" . $row['CreatedDate'] . "</td>";
-			print "<td>" . $row['Credits'] . "</td>";
+<html>
+<head>
+<title>All products</title>
+<style type="text/css">
+	table, th, td {
+		border: 1px solid black;
+		text-align:center
+	}
+	table tr:nth-child(odd) {
+		background-color: #ccc;
+	}
+</style>
+</head>
+<body>
+	<p><a href="http://localhost:8888/">&lt;Back to index&gt;</a></p>
+    
+	<?php	require('config.php'); ?>
+    
+    <?php
+		print "<table style=width:100%><tr><th>Product_Image</th><th>ProductId</th><th>Product_Name</th><th>Description</th><th>Price</th><th>Num_In_Stock</th><th>Calories</th><th>Fats</tr>";
+		
+		$pdo->beginTransaction();
+		
+		$pdo->exec('LOCK TABLES `Product` WRITE');
+		try{
+			$sql = 'SELECT * FROM Product ORDER BY ProductID';
+			foreach ($pdo->query($sql) as $row) {
+				print "<tr>";
+				print "<td>" . '<img src="data:image/jpeg;base64,'.base64_encode( $row['Product_Image'] ).'"/>' . "</td>";
+				print "<td>" . $row['ProductId'] . "</td>";
+				print "<td>" . $row['Product_Name'] . "</td>";
+				print "<td>" . $row['Description'] . "</td>";
+				print "<td>" . $row['Price'] . ". " . $row['Lname'] . "</td>";
+				print "<td>" . $row['Num_In_Stock'] . "</td>";
+				print "<td>" . $row['Calories'] . "</td>";
+				print "<td>" . $row['Fats'] . "</td></tr>";
+			}
+			print "</table><br>";
+			$pdo->commit();
 		}
-		$pdo->commit();
-	}
-	catch(PDOException $e){
-		$pdo->rollBack();
-	}
-	$pdo->exec('UNLOCK TABLES');
-	$pdo->close ();
-?>
+		catch(PDOException $e){
+			$pdo->rollBack();
+		}
+		$pdo->exec('UNLOCK TABLES');
+		$pdo->close ();
+	?>
+    
+</body>
+</html>

@@ -4,14 +4,13 @@
 	define('DB_PASSWORD', 'root');
 	define('DB_NAME', 'Online_Food_Ordering');
 	
- 	function insert_customer($name, $password, $finit, $lname, $address, $phoneno, $email, $credits){
-		print("$name, $password, $finit, $lname, $address, $phoneno, $email, $credits<br>");
+ 	function delete_customer($id){
 		try{
 			$pdo = new PDO("mysql:host=" . DB_SERVER . ";dbname=" . DB_NAME, DB_USERNAME, DB_PASSWORD);
 		
 			$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			
-			print "Connected to database. <br><br>";
+			print "Connected to databse. <br><br>";
 		
 		} catch(PDOException $error){
 			die("ERROR: Could not connect. " . $error->getMessage());
@@ -26,17 +25,9 @@
 		
 		
 		try{
-			$stmt = $pdo->prepare("INSERT INTO `Customer` (`UserName`, `Password`, `Finit`, `Lname`, `Address`, `PhoneNo`, `Email`, `Credits`) VALUES (:uname, :pass, :init, :last, :addr, :phone, :mail, :cred);");
+			$stmt = $pdo->prepare("DELETE FROM `Customer` WHERE IdNo=:idno;");
 			
-			$stmt->bindParam(':uname', $name, PDO::PARAM_STR, 12);
-			$stmt->bindParam(':pass', $password, PDO::PARAM_STR, 12);
-			$stmt->bindParam(':init', $finit, PDO::PARAM_STR, 1);
-			$stmt->bindParam(':last', $lname, PDO::PARAM_STR, 32);
-			$stmt->bindParam(':addr', $address, PDO::PARAM_STR, 256);
-			$stmt->bindParam(':phone', $phoneno, PDO::PARAM_STR, 12);
-			$stmt->bindParam(':mail', $email, PDO::PARAM_STR, 100);
-			$stmt->bindValue(':cred', $credits, PDO::PARAM_INT);
-			$stmt->execute();
+			$stmt->bindParam(':idno', $id, PDO::INT);
 			$pdo->commit();
 			
 			$pdo->exec('UNLOCK TABLES');
