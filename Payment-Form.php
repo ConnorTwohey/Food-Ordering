@@ -4,8 +4,8 @@
     define('DB_PASSWORD', 'root');
     define('DB_NAME', 'Online_Food_Ordering');
 
-    function insert_order($cid,$eid,$pid,$deliver){
-        try{
+    function insert_payment($oid,$cid,$total,$method) {
+      try{
             $pdo = new PDO("mysql:host=" . DB_SERVER . ";dbname=" . DB_NAME, DB_USERNAME, DB_PASSWORD);
 
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -19,21 +19,19 @@
         print "Transaction has begun.<br>";
 
         print "Locking.<br>";
-        $pdo->exec('LOCK TABLES `FoodOrder` WRITE');
-        print "Customer table is locked<br>";
+        $pdo->exec('LOCK TABLES `Customer_Payments` WRITE');
+        print "Customer_Payments table is locked<br>";
 
         try{
-            $stmt1 = $pdo->prepare("INSERT INTO `FoodOrder` (`CmId`, `EmpId`, `Pid`, `Is_Delivery`) VALUES (:custid, :empid, :prodid, :deliv);");
+          $stmt = $pdo->prepare("INSERT INTO `Customer_Payments` (`Cid`,`Oid`,`Payment_Method`,`TotalPrice`) VALUES (:custid, :ordid, :tot, :pay);");
 
-            $stmt1->bindParam(':custid', $cid, PDO::PARAM_INT);
-            $stmt1->bindParam(':empid', $eid, PDO::PARAM_INT);
-            $stmt1->bindParam(':prodid', $pid, PDO::PARAM_INT);
-            $stmt1->bindParam(':deliv', $deliver, PDO::PARAM_BOOL);
-            $stmt1->execute();
+          $stmt->bindParam(':custid', $cid, PDO::PARAM_INT);
+          $stmt->bindParam(':ordid', $oid, PDO::PARAM_INT);
+          $stmt->bindParam(':tot', $total, PDO::PARAM_STR);
+          $stmt->bindParam(':payment', $method, PDO::PARAM_STR);
+          $stmt->execute();
 
-
-            $pdo->commit();
-
+          $pdo->commit();
 
         }
         catch(PDOException $error) {
@@ -42,4 +40,4 @@
             die("ERROR: Could not complete. " . $error->getMessage());
         }
     }
-    ?>
+?>
