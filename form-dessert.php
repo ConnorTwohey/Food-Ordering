@@ -12,7 +12,7 @@
 		// define variables and set to empty values
 		$pnameErr = $descripErr = $priceErr = $imageErr = $stockErr = $calErr = $fatsErr = "";
 		$pname = $descrip = $image = "";
-		$price = $stock = $cal = $fats $iscold = 0;
+		$price = $stock = $cal = $fats = $iscold = 0;
 		
 		if ($_SERVER["REQUEST_METHOD"] == "POST"){
 			  $pname = test_input($_POST["PName"]);

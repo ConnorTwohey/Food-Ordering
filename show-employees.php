@@ -39,7 +39,12 @@
                 echo "<td>" . $row['Salary'] . "</td>";
             }
 			echo "</table><br>";
-            $pdo->commit();
+			$pdo->commit();
+			
+			$pdo->exec('UNLOCK TABLES');
+			
+			print "Successful transaction<br>";
+			$pdo->null;
         }
         catch(PDOException $e){
             $pdo->rollBack();

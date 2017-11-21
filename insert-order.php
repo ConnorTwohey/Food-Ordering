@@ -44,13 +44,13 @@
 			
 			print "Product deincrmented.<br>";
 
+            
             $pdo->commit();
-			
-			$pdo->exec('UNLOCK TABLES');
-			print "Customer entry has commited.<br>Unlock table. <br>";
-			
-			print "Successful transaction<br>";
-			$pdo = null;
+	  
+		    $pdo->exec('UNLOCK TABLES');
+		    print "Unlock table. Successful transaction<br>";
+		
+		    $pdo = null;
         }
         catch(PDOException $error) {
             $pdo->rollback();

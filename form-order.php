@@ -66,8 +66,11 @@
 				echo '<option value=' . $row['ProductId'] . '>' . $row['Product_Name'] . '</option>';
 			}
             $pdo->commit();
-        	$pdo->exec('UNLOCK TABLES');
-			$pdo = null;
+	  
+		    $pdo->exec('UNLOCK TABLES');
+		    print "Unlock table. Successful transaction<br>";
+		
+		    $pdo = null;
 		}
 		catch(PDOException $e){
             $pdo->rollBack();

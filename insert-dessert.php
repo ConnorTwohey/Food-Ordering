@@ -40,15 +40,14 @@
 			
 			$stmt = $pdo->prepare("INSERT INTO `Dessert` (`Pid`, `IsCold`) VALUES (:pid, :iscold);");
 			$stmt->bindParam(':pid', $pid);
-			$stmt->bindParam(':iscold', $iscold
+			$stmt->bindParam(':iscold', $iscold);
 			
-			$pdo->commit();
-			
-			$pdo->exec('UNLOCK TABLES');
-			print "Customer entry has commited.<br>Unlock table. <br>";
-			
-			print "Successful transaction<br>";
-			$pdo = null;
+            $pdo->commit();
+	  
+		    $pdo->exec('UNLOCK TABLES');
+		    print "Unlock table. Successful transaction<br>";
+		
+		    $pdo = null;
 		}
 		catch(PDOException $error) {
 			$pdo->rollback();
