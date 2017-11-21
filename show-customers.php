@@ -14,31 +14,36 @@
 	<p><a href="http://localhost:8888/">&lt;Back to index&gt;</a></p>
     
 	<?php require('config.php');?>
+	<h2>All Customer Records</h2>
 	
 	<p><a href="http://localhost:8888/input-customer.php">&lt;Add a Customer&gt;</a></p>
     
 	<?php
-        print "<table style=width:100%><tr><th>ID No.</th><th>Username</th><th>Password</th><th>Name</th>
+        echo "<table style=width:100%><tr><th>ID No.</th><th>Username</th><th>Password</th><th>Name</th>
         <th>Address</th><th>Phone No.</th><th>Email</th><th>Created by</th><th>Credits</th></tr>";
         
+		echo '<form action="delete-customer.php" method="get">';
+		
         $pdo->beginTransaction();
         
         $pdo->exec('LOCK TABLES `Customer` WRITE');
         try{
             $sql = 'SELECT * FROM Customer ORDER BY IdNo';
             foreach ($pdo->query($sql) as $row) {
-                print "<tr>";
-                print "<td>" . $row['IdNo'] . "</td>";
-                print "<td>" . $row['UserName'] . "</td>";
-                print "<td>" . $row['Password'] . "</td>";
-                print "<td>" . $row['Finit'] . ". " . $row['Lname'] . "</td>";
-                print "<td>" . $row['Address'] . "</td>";
-                print "<td>" . $row['PhoneNo'] . "</td>";
-                print "<td>" . $row['Email'] . "</td>";
-                print "<td>" . $row['CreatedDate'] . "</td>";
-                print "<td>" . $row['Credits'] . "</td></tr>";
+				$id = $row['IdNo'];
+                echo "<tr>";
+                echo "<td>" . $row['IdNo'] . "</td>";
+                echo "<td>" . $row['UserName'] . "</td>";
+                echo "<td>" . $row['Password'] . "</td>";
+                echo "<td>" . $row['Finit'] . ". " . $row['Lname'] . "</td>";
+                echo "<td>" . $row['Address'] . "</td>";
+                echo "<td>" . $row['PhoneNo'] . "</td>";
+                echo "<td>" . $row['Email'] . "</td>";
+                echo "<td>" . $row['CreatedDate'] . "</td>";
+                echo "<td>" . $row['Credits'] . "</td>";
+				echo "<td><a href='delete-customer.php?id=$id'>Delete</a></td></tr>";
             }
-			print "</table><br>";
+			echo "</table><br></form>";
             $pdo->commit();
         }
         catch(PDOException $e){

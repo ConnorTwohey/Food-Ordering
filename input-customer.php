@@ -96,7 +96,9 @@
 	?>
 	
 	<h2>Customer Input Form</h2>
+    
     <p><span class="error">* required field.</span></p>   
+    
 	<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
 	Username: <input type="text" name="UserName" value="<?php echo $name;?>" maxlength="12">
     	<span class="error">* <?php echo $nameErr;?></span><br><br>

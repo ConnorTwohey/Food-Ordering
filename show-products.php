@@ -16,6 +16,8 @@
     
 	<?php	require('config.php'); ?>
     
+	<h2>All Product Records</h2>
+    
     <?php
 		print "<table style=width:100%><tr><th>Product_Image</th><th>ProductId</th><th>Product_Name</th><th>Description</th><th>Price</th><th>Num_In_Stock</th><th>Calories</th><th>Fats</tr>";
 		
