@@ -15,7 +15,7 @@
 	<?php require('config.php');?>
 	<h2>All Customer Records</h2>
 	
-	<p><a href="http://localhost:8888/input-customer.php">&lt;Add a Customer&gt;</a></p>
+	<p><a href="http://localhost:8888/form-customer.php">&lt;Add a Customer&gt;</a></p>
     
 	<?php
         echo "<table style=width:100%><tr><th>ID No.</th><th>Username</th><th>Password</th><th>Name</th>
@@ -46,7 +46,6 @@
             $pdo->commit();
 			
 			$pdo->exec('UNLOCK TABLES');
-			print "Unlock table. Successful transaction<br>";
 			
 			$pdo = null;
         }

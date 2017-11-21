@@ -15,6 +15,8 @@
 	<?php	require('config.php'); ?>
     
 	<h2>All Product Records</h2>
+
+	<p><a href="http://localhost:8888/form-dessert.php">&lt;Add a Product&gt;</a></p>
     
     <?php
 		print "<table style=width:100%><tr><th>Product_Image</th><th>ProductId</th><th>Product_Name</th><th>Description</th><th>Price</th><th>Num_In_Stock</th><th>Calories</th><th>Fats</tr>";
@@ -39,7 +41,6 @@
 			$pdo->commit();
 			
 			$pdo->exec('UNLOCK TABLES');
-			print "Unlock table. Successful transaction<br>";
 			
 			$pdo = null;
 		}

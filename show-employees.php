@@ -43,7 +43,6 @@
 			
 			$pdo->exec('UNLOCK TABLES');
 			
-			print "Successful transaction<br>";
 			$pdo->null;
         }
         catch(PDOException $e){

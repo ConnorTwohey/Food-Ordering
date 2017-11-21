@@ -18,12 +18,15 @@
 			  $pname = test_input($_POST["PName"]);
 			  $descrip = test_input($_POST["Description"]);
 			  $price = $_POST["Price"];
-			  $file = $_POST["Image"];
-			  $image = fopen("$file", "rb");
 			  $stock = $_POST["Stock"];
 			  $cals = $_POST["Calories"];
 			  $fats = $_POST["Fats"];
 			  $iscold = $_POST["Is_Cold"];
+			  
+			  echo "$pname, $descrip, $price, $image, $stock, $cal, $fats, $iscold";
+			  
+			  $file = $_POST["Image"];
+			  $image = fopen("$file", "rb");
 			  
 			  if (empty($pname)) {
 				$pnameErr = "Name is required";
@@ -55,7 +58,7 @@
 			  
 			  if($nameErr == "" && $passwordErr == "" && $finitErr == "" && $lnameErr == "" && $addressErr == "" && $phoneErr == "" && $emailErr == ""){
 					echo "Form has been sent.<br>";
-				  	insert_dessert($pname, $descrip, $price, $fpath, $stock, $cal, $fats, $iscold);
+				  	echo "$pname, $descrip, $price, $fpath, $stock, $cal, $fats, $iscold";
 					echo "Query has been sent<br>";
 					
 			  }
