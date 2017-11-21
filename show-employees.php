@@ -11,7 +11,6 @@
 </style>
 </head>
 <body>
-	<p><a href="http://localhost:8888/">&lt;Back to index&gt;</a></p>
     
 	<?php require('config.php');?>
 	<h2>All Employee Records</h2>
@@ -46,7 +45,8 @@
             $pdo->rollBack();
         }
         $pdo->exec('UNLOCK TABLES');
-        $pdo->close ();
     ?>
+    
+	<p><a href="http://localhost:8888/">&lt;Back to index&gt;</a></p>
 </body>
 </html>

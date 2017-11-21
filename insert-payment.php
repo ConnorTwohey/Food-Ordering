@@ -35,7 +35,11 @@
           $stmt->execute();
 
           $pdo->commit();
-
+	  
+		  $pdo->exec('UNLOCK TABLES');
+		  print "Unlock table. Successful transaction<br>";
+		
+		  $pdo = null;
         }
         catch(PDOException $error) {
             $pdo->rollback();

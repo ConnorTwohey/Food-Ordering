@@ -40,10 +40,9 @@
 			$pdo->commit();
 			
 			$pdo->exec('UNLOCK TABLES');
-			print "Customer entry has commited.<br>Unlock table. <br>";
 			
 			print "Successful transaction<br>";
-			$pdo->close();
+			$pdo->null;
 		}
 		catch(PDOException $error) {
 			$pdo->rollback();

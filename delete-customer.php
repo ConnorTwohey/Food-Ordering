@@ -25,18 +25,16 @@
 	
 	try{
 		$stmt = $pdo->prepare("DELETE FROM `Customer` WHERE IdNo=:idno;");
-		print "Statement is prepared<br>";
 		
 		$stmt->bindParam(':idno', $_GET["id"]);
-		print "Statement is $_GET[id]<br>";
 		$stmt->execute();
 		$pdo->commit();
 		
 		$pdo->exec('UNLOCK TABLES');
-		print "Customer entry has commited.<br>Unlock table. <br>";
 		
+		print "Table unlocked.<br>";
 		print "Successful transaction<br>";
-		$pdo->close();
+		$pdo->null;
 	}
 	catch(PDOException $error) {
 		$pdo->rollback();

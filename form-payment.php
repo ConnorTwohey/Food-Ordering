@@ -33,7 +33,7 @@
 
     if($cidErr == "" && $eidErr == "" && $pidErr == "") {
       echo "Form has been sent.<br>";
-      insert_order($cid,$eid,$pid,$deliver);
+      insert_payment($cid,$eid,$pid,$deliver);
       echo "Query has been sent<br>";
     }
 
@@ -41,7 +41,7 @@
 
   ?>
 
-  <h2>Order Input Form</h2>
+  <h2>Payment Form</h2>
 
   <p><span class="error">* required field.</span></p>
 
@@ -55,7 +55,8 @@
     Product ID: <input type="text" name="ProdId" value="<?php echo $pid;?>">
       <span class="error">* <?php echo $pidErr;?></span><br><br>
 
-    Is Delivery: <input type="text" name="Is_Delivery" value="<?php echo $deliver;?>">
+    Is Delivery: <input type="number" name="Is_Delivery" value="<?php echo $deliver;?>" min="0" max="1">
+    	&nbsp;&nbsp;&nbsp;&nbsp;1 if delivery, 0 if not. <br><br>
 
     <input type="submit" name="submit" value="Submit">
   </form>

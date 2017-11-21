@@ -12,16 +12,18 @@
 		// define variables and set to empty values
 		$pnameErr = $descripErr = $priceErr = $imageErr = $stockErr = $calErr = $fatsErr = "";
 		$pname = $descrip = $image = "";
-		$price = $stock = $cal = $fats = 0;
+		$price = $stock = $cal = $fats $iscold = 0;
 		
 		if ($_SERVER["REQUEST_METHOD"] == "POST"){
 			  $pname = test_input($_POST["PName"]);
 			  $descrip = test_input($_POST["Description"]);
 			  $price = $_POST["Price"];
-			  $image = $_POST["Image"];
+			  $file = $_POST["Image"];
+			  $image = fopen("$file", "rb");
 			  $stock = $_POST["Stock"];
 			  $cals = $_POST["Calories"];
 			  $fats = $_POST["Fats"];
+			  $iscold = $_POST["Is_Cold"];
 			  
 			  if (empty($pname)) {
 				$pnameErr = "Name is required";
@@ -39,20 +41,21 @@
 				$imageErr = "Image is required";
 			  }
 			  
-			  if (empty($stock)) {
+			  if ($stock < 0) {
 				$stockErr = "Number in stock is required";
 			  }
 			  
-			  if (empty($cals) || $cals < 0) {
+			  if ($cals < 0) {
 				$phoneErr = "Calories are required";
 			  }
 			  
-			  if (empty($fats)) {
+			  if ($fats < 0) {
 				$fatsErr = "Email is required";
 			  }
+			  
 			  if($nameErr == "" && $passwordErr == "" && $finitErr == "" && $lnameErr == "" && $addressErr == "" && $phoneErr == "" && $emailErr == ""){
 					echo "Form has been sent.<br>";
-				  	insert_dessert($name, $password, $finit, $lname, $address, $phone , $email, $credits);
+				  	insert_dessert($pname, $descrip, $price, $fpath, $stock, $cal, $fats, $iscold);
 					echo "Query has been sent<br>";
 					
 			  }
@@ -76,14 +79,16 @@
   	Image: <input type="file" name="Image" value="Upload Image">
     	<span class="error">* <?php echo $imageErr;?></span><br><br>
         
-	Stock: <input type="number" name="Stock" value="<?php echo $address;?>" maxlength="256">
+	Stock: <input type="number" name="Stock" value="<?php echo $address;?>" min="0">
     	<span class="error">* <?php echo $addressErr;?></span><br><br>
         
-	Calories: <input type="number" name="Calories" value="<?php echo $phone;?>" maxlength="12">
+	Calories: <input type="number" name="Calories" value="<?php echo $phone;?>" min="0">
     	<span class="error">* <?php echo $phoneErr;?></span><br><br>
         
-  	Fats: <input type="number" name="Fats" value="<?php echo $email;?>" maxlength="100">
+  	Fats: <input type="number" name="Fats" value="<?php echo $email;?>" min="0">
     	<span class="error">* <?php echo $emailErr;?></span><br><br>
+    Is Cold: <input type="number" name="Is_Cold" value="<?php echo $deliver;?>" min="0" max="1">
+    	&nbsp;&nbsp;&nbsp;&nbsp;1 if cold, 0 if not. <br><br>
 	<input type="submit" name="submit" value="Submit">  
 	</form>
 	<p>Click the "Submit" button to input Dessert data.</p>

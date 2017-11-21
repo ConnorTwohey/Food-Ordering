@@ -12,8 +12,6 @@
 </style>
 </head>
 <body>
-	<p><a href="http://localhost:8888/">&lt;Back to index&gt;</a></p>
-    
 	<?php	require('config.php'); ?>
     
 	<h2>All Product Records</h2>
@@ -39,13 +37,17 @@
 			}
 			print "</table><br>";
 			$pdo->commit();
+			
+			$pdo->exec('UNLOCK TABLES');
+			print "Unlock table. Successful transaction<br>";
+			
+			$pdo = null;
 		}
 		catch(PDOException $e){
 			$pdo->rollBack();
 		}
-		$pdo->exec('UNLOCK TABLES');
-		$pdo->close ();
 	?>
     
+	<p><a href="http://localhost:8888/">&lt;Back to index&gt;</a></p>
 </body>
 </html>

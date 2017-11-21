@@ -4,7 +4,7 @@
 	define('DB_PASSWORD', 'root');
 	define('DB_NAME', 'Online_Food_Ordering');
 	
- 	function insert_dessert($pname, $descrip, $price, $fpath, $stock, $cal, $fats){
+ 	function insert_dessert($pname, $descrip, $price, $fpath, $stock, $cal, $fats, $iscold){
 		try{
 			$pdo = new PDO("mysql:host=" . DB_SERVER . ";dbname=" . DB_NAME, DB_USERNAME, DB_PASSWORD);
 		
@@ -29,20 +29,26 @@
 			
 			$stmt->bindParam(':name', $name, PDO::PARAM_STR, 12);
 			$stmt->bindParam(':desc', $descrip, PDO::PARAM_STR, 256);
-			$stmt->bindParam(':price', $name);
-			$stmt->bindParam(':image', $name, PDO::PARAM_STR, 12);
-			$stmt->bindParam(':name', $name, PDO::PARAM_STR, 12);
-			$stmt->bindParam(':name', $name, PDO::PARAM_STR, 12);
-			$stmt->bindParam(':name', $name, PDO::PARAM_STR, 12);
-			$stmt->bindParam(':name', $name, PDO::PARAM_STR, 12);
+			$stmt->bindParam(':price', $price);
+			$stmt->bindParam(':image', $image);
+			$stmt->bindParam(':stock', $name, PDO::PARAM_INT);
+			$stmt->bindParam(':calories', $calories, PDO::PARAM_INT);
+			$stmt->bindParam(':fats', $fats, PDO::PARAM_INT);
 			$stmt->execute();
+			
+			$pid = $pdo->query("SELECT ProductId WHERE Product_Name=$name");
+			
+			$stmt = $pdo->prepare("INSERT INTO `Dessert` (`Pid`, `IsCold`) VALUES (:pid, :iscold);");
+			$stmt->bindParam(':pid', $pid);
+			$stmt->bindParam(':iscold', $iscold
+			
 			$pdo->commit();
 			
 			$pdo->exec('UNLOCK TABLES');
 			print "Customer entry has commited.<br>Unlock table. <br>";
 			
 			print "Successful transaction<br>";
-			$pdo->close();
+			$pdo = null;
 		}
 		catch(PDOException $error) {
 			$pdo->rollback();
