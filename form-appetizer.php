@@ -7,15 +7,15 @@
 </head>
 <body>
 <?php
-  include 'insert-beverage.php';
+  include 'insert-appetizer.php';
 
   $pnameErr = $descripErr = $priceErr = $imageErr = $stockErr = $calErr = $fatsErr = $sizeErr = "";
 		$pname = $descrip = $image = $size = "";
 		$price = $stock = $cal = $fats = 0;
 
     if ($_SERVER["REQUEST_METHOD"] == "POST"){
-    			  $pname = test_input($_POST["PName"]);
-    			  $descrip = test_input($_POST["Description"]);
+    			  $pname = $_POST["PName"];
+    			  $descrip = $_POST["Description"];
     			  $price = $_POST["Price"];
     			  $stock = $_POST["Stock"];
     			  $cals = $_POST["Calories"];
