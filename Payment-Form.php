@@ -25,6 +25,8 @@
         try{
           $stmt = $pdo->prepare("INSERT INTO `Customer_Payments` (`Cid`,`Oid`,`Payment_Method`,`TotalPrice`) VALUES (:custid, :ordid, :tot, :pay);");
 
+          $total = $pdo->query("SELECT Price FROM Product, FoodOrder  WHERE ProductId = Pid AND OrderId = $oid;");
+
           $stmt->bindParam(':custid', $cid, PDO::PARAM_INT);
           $stmt->bindParam(':ordid', $oid, PDO::PARAM_INT);
           $stmt->bindParam(':tot', $total, PDO::PARAM_STR);
