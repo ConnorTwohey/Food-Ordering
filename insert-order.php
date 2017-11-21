@@ -23,24 +23,28 @@
         print "Customer table is locked<br>";
 
         try{
-            $stmt1 = $pdo->prepare("INSERT INTO `FoodOrder` (`CmId`, `EmpId`, `Pid`, `Is_Delivery`) VALUES (:custid, :empid, :prodid, :deliv);");
+            $stmt = $pdo->prepare("INSERT INTO `FoodOrder` (`CmId`, `EmpId`, `Pid`, `Is_Delivery`) VALUES (:custid, :empid, :prodid, :deliv);");
 
-            $stmt1->bindParam(':custid', $cid, PDO::PARAM_INT);
-            $stmt1->bindParam(':empid', $eid, PDO::PARAM_INT);
-            $stmt1->bindParam(':prodid', $pid, PDO::PARAM_INT);
-            $stmt1->bindParam(':deliv', $deliver, PDO::PARAM_BOOL);
-            $stmt1->execute();
+            $stmt->bindParam(':custid', $cid, PDO::PARAM_INT);
+            $stmt->bindParam(':empid', $eid, PDO::PARAM_INT);
+            $stmt->bindParam(':prodid', $pid, PDO::PARAM_INT);
+            $stmt->bindParam(':deliv', $deliver, PDO::PARAM_BOOL);
+            $stmt->execute();
 			
-			$stock = $pdo->query("SELECT Num_In_Stock FROM Product WHERE ProductId = $pid");
+			$stmt = $pdo->prepare("SELECT Num_In_Stock FROM Product WHERE ProductId = :prodid");
+            $stmt->bindParam(':prodid', $pid, PDO::PARAM_INT);
+			$stmt->execute();
+			$row = $stmt->fetch();
+			$stock = $row['Num_In_Stock'];
 			
 			echo "Order inserted. Deincrementing product stock $stock.<br>";
 			
 			$stock--;
 
-			$stmt2 = $pdo->prepare("UPDATE `FoodOrder` SET Num_In_Stock = :stock WHERE ProductID = :prodid;");
-            $stmt2->bindParam(':stock', $stock, PDO::PARAM_INT);
-            $stmt2->bindParam(':prodid', $pid, PDO::PARAM_INT);
-			$stmt2->execute();
+			$stmt = $pdo->prepare("UPDATE `Product` SET Num_In_Stock = :stock WHERE ProductId = :prodid;");
+            $stmt->bindParam(':stock', $stock, PDO::PARAM_INT);
+            $stmt->bindParam(':prodid', $pid, PDO::PARAM_INT);
+			$stmt->execute();
 			
 			print "Product deincrmented.<br>";
 
