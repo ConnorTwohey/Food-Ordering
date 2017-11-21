@@ -7,7 +7,7 @@
 </head>
 <body>
 <?php
-		include 'customer-form.php';
+		include 'insert-customer.php';
 		
 		// define variables and set to empty values
 		$nameErr = $passwordErr = $finitErr = $lnameErr = $addressErr = $phoneErr = $emailErr = "";
@@ -94,6 +94,7 @@
 		  return $data;
 		}
 	?>
+    <p><a href="http://localhost:8888/">&lt;Back to index&gt;</a></p>
 	
 	<h2>Customer Input Form</h2>
     
@@ -125,7 +126,9 @@
 	<input type="submit" name="submit" value="Submit">  
 	</form>
 	<p>Click the "Submit" button to input Customer data.</p>
-	<p><a href="http://localhost:8888/">&lt;Back to index&gt;</a></p>
+    
+    <?php include 'show-customers.php'; ?>
+	
     
 </body>
 </html>

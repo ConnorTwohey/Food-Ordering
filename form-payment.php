@@ -7,7 +7,7 @@
 </head>
 <body>
 <?php
-  include 'order-form.php';
+  include 'insert-payment.php';
 
   // defining variables
   $cid = $eid = $pid = 0;

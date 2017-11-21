@@ -4,7 +4,7 @@
     define('DB_PASSWORD', 'root');
     define('DB_NAME', 'Online_Food_Ordering');
 
-    function insert_payment($oid,$cid,$total,$method) {
+    function insert_payment($oid,$cid,$method) {
       try{
             $pdo = new PDO("mysql:host=" . DB_SERVER . ";dbname=" . DB_NAME, DB_USERNAME, DB_PASSWORD);
 
@@ -23,14 +23,15 @@
         print "Customer_Payments table is locked<br>";
 
         try{
-          $stmt = $pdo->prepare("INSERT INTO `Customer_Payments` (`Cid`,`Oid`,`Payment_Method`,`TotalPrice`) VALUES (:custid, :ordid, :tot, :pay);");
-
+			
           $total = $pdo->query("SELECT Price FROM Product, FoodOrder  WHERE ProductId = Pid AND OrderId = $oid;");
+		  
+          $stmt = $pdo->prepare("INSERT INTO `Customer_Payments` (`Cid`,`Oid`,`Payment_Method`,`TotalPrice`) VALUES (:custid, :ordid, :tot, :pay);");
 
           $stmt->bindParam(':custid', $cid, PDO::PARAM_INT);
           $stmt->bindParam(':ordid', $oid, PDO::PARAM_INT);
-          $stmt->bindParam(':tot', $total, PDO::PARAM_STR);
-          $stmt->bindParam(':payment', $method, PDO::PARAM_STR);
+          $stmt->bindParam(':tot', $total);
+          $stmt->bindParam(':payment', $method, PDO::PARAM_STR, 100);
           $stmt->execute();
 
           $pdo->commit();
