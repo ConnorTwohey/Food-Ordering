@@ -27,8 +27,8 @@
           $stmt = $pdo->prepare("SELECT Price FROM Product, FoodOrder  WHERE ProductId = Pid AND OrderId = :ordid;");
           $stmt->bindParam(':ordid', $oid, PDO::PARAM_INT);
 		  $stmt->execute();
-          $total = $stmt->fetch();
-		  print_r($total);
+          $row = $stmt->fetch();
+		  $total = $row['Price'];
 		  print"<br>$total<br>";
 
           $stmt = $pdo->prepare("INSERT INTO `Customer_Payments` (`Cid`,`Oid`,`Payment_Method`,`TotalPrice`) VALUES (:custid, :ordid, :method, :total);");
