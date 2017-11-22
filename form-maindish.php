@@ -32,7 +32,7 @@
 				  $descripErr = "Description is required";
 			}
 	
-			if ($price <= 0) {
+			if ($price == "" || $price <= 0) {
 				$priceErr = "Price has to be above 0";
 			}
 	
@@ -40,19 +40,22 @@
 				$imageErr = "Image is required";
 			}
 	
-			  if ($stock < 0) {
+			  if ($price == "" || $stock < 0) {
 				$stockErr = "Number in stock is required";
 			  }
 	
-			  if ($cals < 0) {
-				$phoneErr = "Calories are required";
+			  if ($cal == "" || $cal < 0) {
+				$calErr = "Calories are required";
 			  }
 	
-			  if ($fats < 0) {
+			  if ($fats == "" || $fats < 0) {
 				$fatsErr = "Fats are required";
 			  }
 			  if (empty($size)) {
 				  $sizeErr = "Size is required";
+			  }
+			  if ($ishot == "" ||$ishot > 1 || $ishot < 0) {
+				$ishotErr = "Is Hot is required";
 			  }
 	
 			  if($pnameErr == "" && $descripErr == "" && $priceErr == "" && $imageErr == "" && $stockErr == "" && $calErr == "" && $fatsErr == "" && $sizeErr == "" && $ishotErr == ""){
@@ -84,7 +87,7 @@
 	Stock: <input type="number" name="Stock" value="<?php echo $stock;?>" min="0">
     	<span class="error">* <?php echo $stockErr;?></span><br><br>
         
-	Calories: <input type="number" name="Calories" value="<?php echo $cals;?>" min="0">
+	Calories: <input type="number" name="Calories" value="<?php echo $cal;?>" min="0">
     	<span class="error">* <?php echo $calErr;?></span><br><br>
         
   	Fats: <input type="number" name="Fats" value="<?php echo $fats;?>" min="0">
@@ -97,7 +100,8 @@
  	</select><span class="error">* <?php echo $sizeErr;?></span><br><br>
     		
     Is Hot: <input type="number" name="Is_Hot" value="<?php echo $ishot;?>" min="0" max="1">
-    	&nbsp;&nbsp;&nbsp;&nbsp;1 if cold, 0 if not. <br><br>
+    	&nbsp;&nbsp;&nbsp;&nbsp;1 if cold, 0 if not. 
+    	<span class="error">* <?php echo $ishotErr;?></span><br><br>
 	<input type="submit" name="submit" value="Submit">  
 	</form>
 	<p>Click the "Submit" button to input Dessert data.</p>
