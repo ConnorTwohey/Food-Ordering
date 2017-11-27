@@ -15,14 +15,13 @@
             die("ERROR: Could not connect. " . $error->getMessage());
         }
 
-        $pdo->beginTransaction();
-        print "Transaction has begun.<br>";
-
-        print "Locking.<br>";
-        $pdo->exec('LOCK TABLES `Customer_Payments` WRITE, `Product` READ, `FoodOrder` READ');
-        print "Customer_Payments table is locked<br>";
-
         try{
+			$pdo->beginTransaction();
+			print "Transaction has begun.<br>";
+	
+			print "Locking.<br>";
+			$pdo->exec('LOCK TABLES `Customer_Payments` WRITE, `Product` READ, `FoodOrder` READ');
+			print "Customer_Payments table is locked<br>";
 
           $stmt = $pdo->prepare("SELECT Price FROM Product, FoodOrder  WHERE ProductId = Pid AND OrderId = :ordid;");
           $stmt->bindParam(':ordid', $oid, PDO::PARAM_INT);

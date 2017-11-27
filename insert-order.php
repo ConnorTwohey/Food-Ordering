@@ -15,14 +15,14 @@
             die("ERROR: Could not connect. " . $error->getMessage());
         }
 
-        $pdo->beginTransaction();
-        print "Transaction has begun.<br>";
-
-        print "Locking.<br>";
-        $pdo->exec('LOCK TABLES `FoodOrder` WRITE, `PRODUCT` WRITE');
-        print "Customer table is locked<br>";
-
         try{
+			$pdo->beginTransaction();
+			print "Transaction has begun.<br>";
+	
+			print "Locking.<br>";
+			$pdo->exec('LOCK TABLES `FoodOrder` WRITE, `PRODUCT` WRITE');
+			print "Customer table is locked<br>";
+			
             $stmt = $pdo->prepare("INSERT INTO `FoodOrder` (`CmId`, `EmpId`, `Pid`, `Is_Delivery`) VALUES (:custid, :empid, :prodid, :deliv);");
 
             $stmt->bindParam(':custid', $cid, PDO::PARAM_INT);

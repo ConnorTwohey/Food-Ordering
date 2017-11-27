@@ -14,8 +14,7 @@
 	
 	} catch(PDOException $error){
 		die("ERROR: Could not connect. " . $error->getMessage());
-	}	  
-	
+	}
 	
 	try{
 		$pdo->beginTransaction();

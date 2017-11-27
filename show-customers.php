@@ -23,10 +23,11 @@
         
 		echo '<form action="delete-customer.php" method="get">';
 		
-        $pdo->beginTransaction();
-        
-        $pdo->exec('LOCK TABLES `Customer` WRITE');
         try{
+			$pdo->beginTransaction();
+        
+        	$pdo->exec('LOCK TABLES `Customer` READ');
+			
             $sql = 'SELECT * FROM Customer ORDER BY IdNo';
             foreach ($pdo->query($sql) as $row) {
 				$id = $row['IdNo'];
