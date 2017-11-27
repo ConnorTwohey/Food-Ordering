@@ -24,7 +24,7 @@
 		try{
 			$pdo->beginTransaction();
 			
-			$stmt = $pdo->prepare('SELECT P.*, A.*, B.*, S.*, M.*, D.* FROM `Product` as P LEFT OUTER JOIN `Appetizer` as A ON P.ProductId=A.Pid LEFT OUTER JOIN `Beverage` as B ON P.ProductId=B.Pid LEFT OUTER JOIN `Salad` as S ON P.ProductId=S.Pid LEFT OUTER JOIN `MainDish` as M ON P.ProductId=M.Pid LEFT OUTER JOIN `Dessert` as D ON P.ProductId=D.Pid ORDER BY P.ProductId ');
+			$stmt = $pdo->prepare('SELECT P.*, A.*, B.*, S.*, M.*, D.* FROM `Product` as P LEFT OUTER JOIN `Appetizer` as A ON P.ProductId=A.Pid LEFT OUTER JOIN `Beverage` as B ON P.ProductId=B.Pid LEFT OUTER JOIN `Salad` as S ON P.ProductId=S.Pid LEFT OUTER JOIN `MainDish` as M ON P.ProductId=M.Pid LEFT OUTER JOIN `Dessert` as D ON P.ProductId=D.Pid ORDER BY P.ProductId');
 			$stmt->execute();
 			while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
 				print "<tr>";

@@ -212,7 +212,7 @@
 		
 		print("ProductID $pid found.<br>");
 		
-		$stmt = $pdo->prepare("INSERT INTO `Appetizer` (`Pid`, `Size`, `IsHot`) VALUES (:pid, :size, :ishot) ON DUPLICATE KEY UPDATE `Size`=:size, `IsHot`=:ishot;");
+		$stmt = $pdo->prepare("INSERT INTO `MainDish` (`Pid`, `Size`, `IsHot`) VALUES (:pid, :size, :ishot) ON DUPLICATE KEY UPDATE `Size`=:size, `IsHot`=:ishot;");
 		$stmt->bindParam(':pid', $pid, PDO::PARAM_INT);
 		$stmt->bindParam(':size', $size);
 		$stmt->bindParam(':ishot', $ishot, PDO::PARAM_INT);
