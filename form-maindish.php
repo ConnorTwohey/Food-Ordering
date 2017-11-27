@@ -99,9 +99,11 @@
 		<option value="L">L</option>
  	</select><span class="error">* <?php echo $sizeErr;?></span><br><br>
     		
-    Is Hot: <input type="number" name="Is_Hot" value="<?php echo $ishot;?>" min="0" max="1">
-    	&nbsp;&nbsp;&nbsp;&nbsp;1 if cold, 0 if not. 
-    	<span class="error">* <?php echo $ishotErr;?></span><br><br>
+    Is Cold: <select name = "Is_Hot">
+    	<option value="">Please select as size</option>
+    	<option value="1">True</option>
+    	<option value="0">False</option>
+     </select><br><br><span class="error">* <?php echo $ishotErr;?></span><br><br>
 	<input type="submit" name="submit" value="Submit">  
 	</form>
 	<p>Click the "Submit" button to input Dessert data.</p>

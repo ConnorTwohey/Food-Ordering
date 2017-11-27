@@ -31,8 +31,12 @@
 
   	Fats: <input type="number" name="Fats" value="<?php echo $email;?>" min="0">
     	<span class="error">* <?php echo $emailErr;?></span><br><br>
-    Size: <input type="text" name="Size" value="<?php echo $deliver;?>">
-    	&nbsp;&nbsp;&nbsp;&nbsp;S, M, or L. <br><br>
+    Size: <select name = "Size">
+    	<option value="">Please select as size</option>
+    	<option value="S">S</option>
+    	<option value="M">M</option>
+    	<option value="L">L</option>
+     </select><br><br>
 	<input type="submit" name="submit" value="Submit">
 	</form>
 	<p>Click the "Submit" button to input Beverage data.</p>

@@ -88,8 +88,11 @@
         
   	Fats: <input type="number" name="Fats" value="<?php echo $fats;?>" min="0">
     	<span class="error">* <?php echo $fatsErr;?></span><br><br>
-    Is Cold: <input type="number" name="Is_Cold" value="<?php echo $iscold;?>" min="0" max="1">
-    	&nbsp;&nbsp;&nbsp;&nbsp;1 if cold, 0 if not. <span class="error">* <?php echo $iscoldErr;?></span><br><br>
+    Is Cold: <select name = "Is_Cold">
+    	<option value="">Please select</option>
+    	<option value="1">True</option>
+    	<option value="0">False</option>
+     </select><br><br><span class="error">* <?php echo $iscoldErr;?></span><br><br>
 	<input type="submit" name="submit" value="Submit">  
 	</form>
 	<p>Click the "Submit" button to input Dessert data.</p>

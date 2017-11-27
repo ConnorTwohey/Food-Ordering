@@ -15,15 +15,14 @@
 		die("ERROR: Could not connect. " . $error->getMessage());
 	}
 	
-	$pdo->beginTransaction();
-	print "Transaction has begun.<br>";
-	
-	print "Locking.<br>";
-	$pdo->exec('LOCK TABLES `Customer` WRITE');
-	print "Customer table is locked<br>";
-	
-	
 	try{
+		$pdo->beginTransaction();
+		print "Transaction has begun.<br>";
+		
+		print "Locking.<br>";
+		$pdo->exec('LOCK TABLES `Customer` WRITE');
+		print "Customer table is locked<br>";
+		
 		$stmt = $pdo->prepare("DELETE FROM `Customer` WHERE IdNo=:idno;");
 		
 		$stmt->bindParam(':idno', $_GET["id"]);
