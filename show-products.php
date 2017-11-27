@@ -15,8 +15,6 @@
 	<?php	require('config.php'); ?>
     
 	<h2>All Product Records</h2>
-
-	<p><a href="http://localhost:8888/form-dessert.php">&lt;Add a Product&gt;</a></p>
     
     <?php
 		print "<table style=width:100%><tr><th>Product_Image</th><th>ProductId</th><th>Product_Name</th><th>Description</th><th>Price</th><th>Num_In_Stock</th><th>Calories</th><th>Fats</th><th>Size</th><th>Boolean<br>(1 if true, 0 if false)</th></tr>";
@@ -59,14 +57,12 @@
 			print "</table><br>";
 			$pdo->commit();
 			
-			
 			$pdo = null;
 		}
 		catch(PDOException $error){
 			$pdo->rollBack();
 			print("Rollingback <br>");
 			die("ERROR: Could not complete. " . $error->getMessage());
-
 		}
 	?>
     

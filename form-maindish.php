@@ -99,7 +99,7 @@
 		<option value="L">L</option>
  	</select><span class="error">* <?php echo $sizeErr;?></span><br><br>
     		
-    Is Cold: <select name = "Is_Hot">
+    Is Hot: <select name = "Is_Hot">
     	<option value="">Please select as size</option>
     	<option value="1">True</option>
     	<option value="0">False</option>

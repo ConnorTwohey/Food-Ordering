@@ -96,8 +96,11 @@
 		<option value="L">L</option>
  	</select><span class="error">* <?php echo $sizeErr;?></span><br><br>
 
-    Has Dressing: <input type="number" name="Has_Dressing" value="<?php echo $dressing;?>" min="0" max="1">
-    	&nbsp;&nbsp;&nbsp;&nbsp;1 if dressing, 0 if not. <br><br>
+     Has Dressing: <select name = "Has_Dressing">
+    	<option value="">Select ...</option>
+    	<option value="1">True</option>
+    	<option value="0">False</option>
+     </select><span class="error">*</span><br><br>
 	<input type="submit" name="submit" value="Submit">
 	</form>
 	<p>Click the "Submit" button to input Salad data.</p>
